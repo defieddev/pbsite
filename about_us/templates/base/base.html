@@ -1,0 +1,17 @@
+{% load static %}
+{% block banner %}
+
+<center>
+    <header>
+        <div>
+        <img src="{{ club.logo.url }}" alt="{{ club.name }}'s Logo">
+        <h1>{{ club.name }}</h1>
+        </div>
+        <p>{{ club.description }}</p>
+        <!-- Debug output -->
+        {% comment %} <p>Club Name: {{ club.name }}</p>
+        <p>Club Description: {{ club.description }}</p> {% endcomment %}
+    </header>
+</center>
+
+{% endblock banner %}

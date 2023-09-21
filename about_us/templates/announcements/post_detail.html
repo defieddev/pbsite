@@ -1,0 +1,28 @@
+<!-- announcement_detail.html -->
+{% load static %}
+
+{% include 'base/base.html' %}
+
+<style>
+    .announcement {
+      {% comment %} display: flex; {% endcomment %}
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      padding: 10px;
+    }
+    img {
+      max-width: 300px;
+    }
+</style>
+
+<div class="announcement">
+  <center>
+    <h1>{{ announcement.title }}</h1>
+    {% comment %} <p>{{ announcement.content }}</p> {% endcomment %}
+    <p>{{ announcement.description }}</p>
+    <img src="{{ announcement.picture.url }}" alt="{{ announcement.title }} Picture">
+    <p>Created and Posted at: {{ announcement.date_created }}</p>
+  </center>
+</div>

@@ -1,0 +1,20 @@
+{% include 'base/base.html' %}
+
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+  <ul>
+    {% for member in members %}
+    <li>{{ member.name }} (Joined: {{ member.year_joined}})</li>
+    {% endfor %}
+  </ul>
+</body>
+</html> 
+  
+
+

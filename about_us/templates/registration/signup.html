@@ -1,0 +1,12 @@
+{% load static %}
+
+{% include 'base/base.html' %}
+
+<h2>Join Us!</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    {{ membership_request_form.as_p }}
+
+    <button type="submit">Send Request For Membership Approval</button>
+</form>
