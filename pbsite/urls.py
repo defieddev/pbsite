@@ -15,7 +15,5 @@ urlpatterns = [
     path('announcement/<int:announcement_id>/', views.announcement_detail, name='announcement_detail'),
     path('search/', views.search, name='search'),
 
-]
-
-urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 

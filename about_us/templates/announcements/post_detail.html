@@ -13,7 +13,26 @@
       padding: 10px;
     }
     img {
-      max-width: 300px;
+      max-width: 700px;
+    }
+
+    body {
+      background-image: url('https://t3.ftcdn.net/jpg/01/67/84/96/240_F_167849685_T2ZPvzMwneBl3zvt74by94gSM01hU2qn.jpg');
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-position: center;
+      background-size: cover;
+      color: white;
+    }
+    
+    /* Example: Change the color of headings */
+    h2 {
+      color: white;
+    }
+    
+    /* Example: Change the color of paragraphs */
+    p {
+      color: white;
     }
 </style>
 
@@ -22,7 +41,7 @@
     <h1>{{ announcement.title }}</h1>
     {% comment %} <p>{{ announcement.content }}</p> {% endcomment %}
     <p>{{ announcement.description }}</p>
-    <img src="{{ announcement.picture.url }}" alt="{{ announcement.title }} Picture">
+    <img src="{{ announcement.picture.url }}" alt="{{ announcement.picture.url }}">
     <p>Created and Posted at: {{ announcement.date_created }}</p>
   </center>
 </div>
