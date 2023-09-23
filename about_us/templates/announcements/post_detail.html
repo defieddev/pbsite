@@ -1,17 +1,12 @@
 <!-- announcement_detail.html -->
+{% load django_bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
 {% load static %}
+{% include 'banner/banner.html' %}
 
-{% include 'base/base.html' %}
 
 <style>
-    .announcement {
-      {% comment %} display: flex; {% endcomment %}
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px;
-      border: 1px solid #ccc;
-      padding: 10px;
-    }
     img {
       max-width: 700px;
     }
@@ -24,24 +19,45 @@
       background-size: cover;
       color: white;
     }
-    
-    /* Example: Change the color of headings */
-    h2 {
-      color: white;
+
+    .post-link {
+      color: white; /* Change to your desired text color */
+      font-size: 20px;
+      text-decoration: none; /* Remove underline */
+      display: flex;
+      justify-content: space-between;
     }
-    
-    /* Example: Change the color of paragraphs */
-    p {
-      color: white;
+
+    .post-link img {
+      max-width: 400px;
+      height: 300px;
     }
+
+    
 </style>
 
 <div class="announcement">
   <center>
     <h1>{{ announcement.title }}</h1>
-    {% comment %} <p>{{ announcement.content }}</p> {% endcomment %}
     <p>{{ announcement.description }}</p>
     <img src="{{ announcement.picture.url }}" alt="{{ announcement.picture.url }}">
     <p>Created and Posted at: {{ announcement.date_created }}</p>
   </center>
+</div>
+
+<div class="text-center mt-4">
+  <h4>Want to see more posts?</h4>
+</div>
+
+<div class="mt-4">
+  <div class="row">
+    {% for announcement in page_obj %}
+      <div class="col-md-4">
+        <p style="text-align: center;">{{ announcement.title }}</p>
+        <a href="{% url 'announcement_detail' announcement.id %}" class="post-link">
+          <img src="{{ announcement.picture.url }}" class="img-fluid rounded" alt="{{ announcement.picture.url }}">
+        </a>
+      </div>
+    {% endfor %}
+  </div>
 </div>

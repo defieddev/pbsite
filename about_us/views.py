@@ -7,6 +7,8 @@ from django.views import generic
 from .forms import AnnouncementsForm, CustomRegistrationForm
 # from django.core.mail import send_mail
 from django.conf import settings
+from random import shuffle
+from django.core.paginator import Paginator
 
 def about_us(request):
     club = ParishianClub.objects.first()
@@ -54,8 +56,14 @@ def create_announcement(request):
     return render(request, 'announcements/create_post.html', {'form': form})
 
 def announcement_detail(request, announcement_id):
-    announcement = get_object_or_404(Announcements, id = announcement_id)
-    return render(request, 'announcements/post_detail.html', {'announcement': announcement})
+    announcement = get_object_or_404(Announcements, id=announcement_id)
+    announcements = list(Announcements.objects.all())
+    shuffle(announcements)  # randomizing posts
+    paginator = Paginator(announcements, 3)  # show 3 posts per post_detail page
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    club = ParishianClub.objects.first()
+    return render(request, 'announcements/post_detail.html', {'announcement': announcement, 'club': club, 'page_obj': page_obj})
 
 def search(request):
     query = request.GET.get('q')
