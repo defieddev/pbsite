@@ -28,7 +28,9 @@ SECRET_KEY = 'django-insecure-*)k)@%!*+(+i^#8!=j#gwak4#z323odxpint^0=th!psdlw1_j
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['www.parishianclub.online', '127.0.0.1']
+
+# AUTH_USER_MODEL = 'about_us.User'
 
 
 # Application definition
@@ -40,8 +42,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'about_us',
     'django_bootstrap5',
+    'crispy_forms',
+    'crispy_bootstrap5',
+    'about_us',
+
 ]
 
 MIDDLEWARE = [
@@ -53,6 +58,10 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
+
 
 ROOT_URLCONF = 'pbsite.urls'
 
@@ -78,18 +87,31 @@ WSGI_APPLICATION = 'pbsite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'pb_server_v3',
+#         'USER': 'root',
+#         'PASSWORD': 'rootroot',
+#         'HOST': 'localhost',
+#         'PORT': '3306',
+#     }
+# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'pb_server_v1',
-        'USER': 'test',
-        'PASSWORD': 'password',
-        'HOST': 'localhost',
+        'NAME': 'DefiedDevel$pb_server_v1',
+        'USER': 'DefiedDevel',
+        'PASSWORD': 'rootroot2009**',
+        'HOST': 'DefiedDevel.mysql.pythonanywhere-services.com',
         'PORT': '3306',
     }
 }
 
+LOGIN_REDIRECT_URL = 'about_us'
 
+LOGIN_URL = '/login/'
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators

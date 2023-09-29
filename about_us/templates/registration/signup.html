@@ -1,12 +1,43 @@
+{% load django_bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
 {% load static %}
+{% load crispy_forms_tags %}
 
-{% include 'base/base.html' %}
+<style>
+  body {
+    background-image: url('https://t3.ftcdn.net/jpg/01/67/84/96/240_F_167849685_T2ZPvzMwneBl3zvt74by94gSM01hU2qn.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    color: white;
+  }
+  
+  /* Example: Change the color of headings */
+  h2 {
+    color: white;
+  }
+  
+  /* Example: Change the color of paragraphs */
+  p {
+    color: white;
+  }
+</style>
 
-<h2>Join Us!</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    {{ membership_request_form.as_p }}
-
-    <button type="submit">Send Request For Membership Approval</button>
-</form>
+{% block content %}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <form method="POST" action="{% url 'signup' %}" novalidate>
+        {% csrf_token %}
+        <h2>Sign Up</h2>
+        <div class="form-group">
+          {{ form|crispy }}
+        </div>
+        <input type="submit" value="Register" class="btn btn-primary" />
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,16 @@
+{% load django_bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% load static %}
+{% block banner %}
+
+<div class="text-center">
+    <img src="{{ club.logo.url }}" alt="{{ club.name }}'s Logo">
+    <h1>{{ club.name }}</h1>
+    <p>{{ club.description }}</p>
+    <!-- Debug output -->
+    {% comment %} <p>Club Name: {{ club.name }}</p>
+    <p>Club Description: {{ club.description }}</p> {% endcomment %}
+</div>
+
+{% endblock banner %}

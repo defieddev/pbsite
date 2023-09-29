@@ -1,12 +1,44 @@
+{% load django_bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
 {% load static %}
 
-{% include 'base/base.html' %}
+{% load crispy_forms_tags %}
 
-<h2>Login In</h2>
-<form method="post">
+<style>
+    body {
+      background-image: url('https://t3.ftcdn.net/jpg/01/67/84/96/240_F_167849685_T2ZPvzMwneBl3zvt74by94gSM01hU2qn.jpg');
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-position: center;
+      background-size: cover;
+      color: white;
+    }
     
-    {% csrf_token %}
-    {{ form.as_p }}
+    /* Example: Change the color of headings */
+    h2 {
+      color: white;
+    }
+    
+    /* Example: Change the color of paragraphs */
+    p {
+      color: white;
+    }
+</style>
 
-    <button type='submit'>Log In</button>
-</form>
+<center><h2>Oh! So you are an existing user?</h2></center>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        <div class="form-group">
+          {{ form|crispy }}
+        </div>
+        <input type="hidden" name="next" value="{% url 'about_us' %}">
+        <button type="submit" class="btn btn-primary">Sign in</button>
+      </form>
+    </div>
+  </div>
+</div>
+

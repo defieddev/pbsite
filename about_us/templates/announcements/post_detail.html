@@ -36,6 +36,12 @@
     
 </style>
 
+{% if not user.is_authenticated %}
+  <div class="text-center mt-4">
+    <p>Looks like you haven't logged in yet. Why not do it now? Or if you are new, why not register?</p>
+  </div>
+
+{% else %}
 <div class="announcement">
   <center>
     <h1>{{ announcement.title }}</h1>
@@ -61,3 +67,4 @@
     {% endfor %}
   </div>
 </div>
+{% endif %}

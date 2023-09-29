@@ -1,20 +1,96 @@
-{% include 'base/base.html' %}
+{% load django_bootstrap5 %}
+{% bootstrap_css %}
+{% load static %}
+{% include 'banner/banner.html' %}
+{% block content %}
+
+<a href="javascript:history.back()" class="btn btn-primary back-button">
+  <span class="back-arrow"></span> Back
+</a>
 
 <!doctype html>
 <html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      background-image: url('https://t3.ftcdn.net/jpg/01/67/84/96/240_F_167849685_T2ZPvzMwneBl3zvt74by94gSM01hU2qn.jpg');
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-position: center;
+      background-size: cover;
+      color: white;
+    }
+
+    .card {
+      background-color: black;
+    }
+
+    .card-body {
+      color: white;
+    }
+
+    img {
+      max-width: 300px;
+    }
+
+    .back-button {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      padding: 10px;
+      border-radius: 50%;
+      background-color: transparent;
+      border: none;
+      color: white;
+      font-size: 24px;
+    }
+  
+    .back-arrow {
+      display: inline-block;
+      width: 0;
+      height: 0;
+      border-top: 10px solid transparent;
+      border-bottom: 10px solid transparent;
+      border-right: 10px solid white;
+      margin-right: 10px;
+    }
+  </style>
 </head>
 <body>
-
-  <ul>
-    {% for member in members %}
-    <li>{{ member.name }} (Joined: {{ member.year_joined}})</li>
-    {% endfor %}
-  </ul>
+  {% comment %} <div class="text-center">
+    <a href="{% url 'about_us' %}">
+    <img src="{{ club.logo.url }}" alt="{{ club.name }}'s Logo">
+    </a>
+    <h1>{{ club.name }}</h1>
+    <p>{{ club.description }}</p>
+  </div> {% endcomment %}
+  <div class="container">
+    <div class="row">
+      {% for member in members %}
+        <div class="col-md-4">
+          <div class="card">
+            <img src="{{ member.profpic.image.url }}" class="card-img-top" alt="Profile Picture">
+            <h2>{{ member.first_name }} {{ member.last_name }}</h2>
+            <div class="card-body">
+              <h5 class="card-title">{{ member.name }}</h5>
+              <p class="card-text">Birthday: {{ member.birthday }}</p>
+              <p class="card-text">Occupation: {{ member.occupation }}</p>
+              <p class="card-text">Height: {{ member.height }}</p>
+              <p class="card-text">Weight: {{ member.weight }}</p>
+              <p class="card-text">Age: {{ member.age }}</p>
+              <p class="card-text">TIN: {{ member.tin }}</p>
+              <p class="card-text">Jersey Number: {{ member.jerseynum }}</p>
+              <p class="card-text">GCash Number: {{ member.gcashnum }}</p>
+              <p class="card-text">Team: {{ member.team }}</p>
+            </div>
+          </div>
+        </div>
+      {% endfor %}   
+    </div>
+  </div>
+  {% bootstrap_javascript %}
 </body>
-</html> 
-  
-
-
+</html>
+{% endblock  %}

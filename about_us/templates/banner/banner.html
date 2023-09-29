@@ -5,20 +5,40 @@
 {% block banner %}
 
 <div class="text-center">
+    <a href="{% url 'about_us' %}">
     <img src="{{ club.logo.url }}" alt="{{ club.name }}'s Logo">
+    </a>
     <h1>{{ club.name }}</h1>
     <p>{{ club.description }}</p>
-    <!-- Debug output -->
-    {% comment %} <p>Club Name: {{ club.name }}</p>
-    <p>Club Description: {{ club.description }}</p> {% endcomment %}
-    <div class="d-flex justify-content-center gap-2">
-        <form action="{% url 'signup' %}" method="get">
-            <button type="submit" class="btn btn-primary">Register!</button>
+    {% if user.is_authenticated %}
+    <p>Welcome to the club, {{ user.username }}! What would you like to see today?</p>
+    <div class="d-flex justify-content-center">
+        <form action="{% url 'logout' %}" method="post" class="me-2">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Logout</button>
         </form>
-        <form action="{% url 'login' %}" method="get">
-            <button type="submit" class="btn btn-secondary">Login!</button>
-        </form>
+        {% if user.is_authenticated and user.profpic.image %}
+            {% if request.path != '/members/' %}
+            <form action="{% url 'members' %}" class="me-2">
+                <button type="submit" class="btn btn-primary">View Members List</button>
+            </form>
+            {% endif %}
+        {% endif %}
+
+        {% if request.path != '/profile/' %}
+            <form action="{% url 'profile' %}">
+                <button class="btn btn-primary">Your Profile</button>
+            </form>
+        {% endif %}
     </div>
+    {% else %}
+    <form action="{% url 'signup' %}" method="get" class="me-2">
+        <button type="submit" class="btn btn-primary">Register!</button>
+    </form>
+    <form action="{% url 'login' %}" method="get">
+        <button type="submit" class="btn btn-secondary">Login!</button>
+    </form>
+    {% endif %}
 </div>
 
 {% endblock banner %}

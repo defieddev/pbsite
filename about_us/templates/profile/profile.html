@@ -1,0 +1,252 @@
+{% load django_bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% load crispy_forms_tags %}
+{% include 'banner/banner.html' %}
+{% load static %}
+
+<a href="javascript:history.back()" class="btn btn-primary back-button">
+    <span class="back-arrow"></span> Back
+</a>
+
+<style>
+    body {
+        background-image: url('https://t3.ftcdn.net/jpg/01/67/84/96/240_F_167849685_T2ZPvzMwneBl3zvt74by94gSM01hU2qn.jpg');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: center;
+        background-size: cover;
+        color: white;
+    }
+    
+    h2, th {
+        color: white;
+    }
+        
+    p, td {
+        color: white;
+    }
+
+    input {
+        max-width: 30em;
+        color: black; 
+    }
+
+    .warning {
+        color: red;
+        font-weight: bold;
+        display: inline-block;
+        margin-left: 10px;
+        transform: scale(0.8);
+        transform-origin: left;
+    }
+
+    .note {
+        color: red;
+        font-weight: bold;
+        display: inline-block;
+        margin-left: 10px;
+        transform: scale(0.8);
+        transform-origin: left;
+    }
+
+    .back-button {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        padding: 10px;
+        border-radius: 50%;
+        background-color: transparent;
+        border: none;
+        color: white;
+        font-size: 24px;
+    }
+    
+    .back-arrow {
+        display: inline-block;
+        width: 0;
+        height: 0;
+        border-top: 10px solid transparent;
+        border-bottom: 10px solid transparent;
+        border-right: 10px solid white;
+        margin-right: 10px;
+    }
+</style>
+<center>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="table-responsive">
+                    <table class="table">
+                        <tr>
+                            <th>Username</th>
+                            <td>{{ user.username }}</td>
+                        </tr>
+                        <tr>
+                            <th>First Name</th>
+                            <td>{{ user.first_name }}</td>
+                        </tr>
+                        <tr>
+                            <th>Last Name</th>
+                            <td>{{ user.last_name }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="table-responsive">
+                    <table class="table">
+                        <tr>
+                            <th>Profile Picture
+                            </th>
+                            <td>
+                                {% if profpic.image %}
+                                    <img class="image" src="{{ profpic.image.url }}" alt="{{ user.username }} Profile Picture" style="width: 200px; height: 200px;">
+                                {% else %}
+                                    <p>No profile picture available</p>
+                                {% endif %}
+                                {% if not profpic.image %}
+                                <form method="POST" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    {{ form|crispy }}
+                                    <button type="submit">Upload</button>
+                                </form>
+                                {% endif %}
+                            </td>
+                        {% comment %} </tr> {% endcomment %}
+                        {% comment %} <tr>
+                             <th>Jersey Number Picture
+                            </th> 
+                            <td> {% endcomment %}
+                                {% comment %} {% if jerseynumpic %}
+                                    <img class="image" src="{{ jerseynumpic.image.url }}" alt="{{ user.username }}'s Profile Picture" style="width: 200px; height: 200px;">
+                                {% else %}
+                                    <p>No profile picture available</p>
+                                {% endif %}
+                                <form method="POST" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    {{ form|crispy }}
+                                    {% if not jerseynumpic %}
+                                        <button type="submit">Upload</button>
+                                    {% endif %}
+                                </form> {% endcomment %}
+                            {% comment %} </td> {% endcomment %}
+                        {% comment %} </tr> {% endcomment %}
+                        <tr>
+                            <th>
+                                Birthday
+                                <span class="note">Follow this format for the Birthday: YYYY-MM-DD</span>
+                            </th>
+                            <td>
+                                <form method="POST" action="{% url 'update_birthday' %}">
+                                    {% csrf_token %}
+                                    <input type="text" name="birthday" value="{{ user.birthday }}" />
+                                    <input type="submit" value="Enter" />
+                                </form>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Occupation
+                            </th>
+                            <td>
+                                <form method="POST" action="{% url 'update_occupation' %}">
+                                    {% csrf_token %}
+                                    <input type="text" name="occupation" value="{{ user.occupation }}" />
+                                    <input type="submit" value="Enter" />
+                                </form>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Height
+                            </th>
+                            <td>
+                                <form method="POST" action="{% url 'update_height' %}">
+                                    {% csrf_token %}
+                                    <input type="text" name="height" value="{{ user.height }}" />
+                                    <input type="submit" value="Enter" />
+                                </form>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Weight
+                            </th>
+                            <td>
+                                <form method="POST" action="{% url 'update_weight' %}">
+                                    {% csrf_token %}
+                                    <input type="text" name="weight" value="{{ user.weight }}" />
+                                    <input type="submit" value="Enter" />
+                                </form>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Age
+                            </th>
+                            <td>
+                                <form method="POST" action="{% url 'update_age' %}">
+                                    {% csrf_token %} 
+                                    <input type="text" name="age" value="{{ user.age }}" />
+                                    <input type="submit" value="Enter" />
+                                </form>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                TIN Number
+                                <span class="note">Be wary of what number you put in here!</span>
+                            </th>
+                            <td>
+                                <form method="POST" action="{% url 'update_tin' %}">
+                                    {% csrf_token %}
+                                    <input type="text" name="tin" value="{{ user.tin }}" />
+                                    <input type="submit" value="Enter" />
+                                </form>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Jersey Number
+                            </th>
+                            <td>
+                                <form method="POST" action="{% url 'update_jerseynum' %}">
+                                    {% csrf_token %}
+                                    <input type="text" name="jerseynum" value="{{ user.jerseynum }}" />
+                                    <input type="submit" value="Enter" />
+                                </form>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                GCash Number
+                                <span class="note">Only 8-digit numbers allowed</span>
+                            </th>
+                            <td>
+                                <form method="POST" action="{% url 'update_gcashnum' %}">
+                                    {% csrf_token %}
+                                    <input type="text" name="gcashnum" value="{{ user.gcashnum }}" />
+                                    <input type="submit" value="Enter" />
+                                </form>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Team
+                            </th>
+                            <td>
+                                <form method="POST" action="{% url 'update_team' %}">
+                                    {% csrf_token %}
+                                    <input type="text" name="team" value="{{ user.team }}" />
+                                    <input type="submit" value="Enter" />
+                                </form>
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</center>
